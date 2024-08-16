@@ -1,22 +1,22 @@
 /**
  * @module fetcho
- * @description Módulo para realizar peticiones HTTP utilizando como base fetch.
+ * @description Module for making HTTP requests using fetch as a base.
  * @version 1.0
  * @author Enmanuel Colina <theenmanuel123@gmail.com>
  */
 
 /**
- * Función asincrónica para realizar peticiones HTTP utilizando fetch.
+ * Asynchronous function for making HTTP requests using fetch.
  *
- * @param {Object} params - Objeto que contiene los parámetros para la petición.
- * @param {string} params.url - La URL a la que se realizará la petición.
- * @param {string} params.method - El método HTTP a utilizar (GET, POST, etc.).
- * @param {Object} [params.body] - El cuerpo de la petición, si es necesario.
- * @param {boolean} [params.isCors=false] - Indica si la petición debe ser realizada con CORS.
- * @returns {Promise<Object>} - Retorna una promesa que resuelve con los datos de la respuesta, o false si ocurre un error.
- * @throws {Error} - Lanza un error si la respuesta no es correcta.
+ * @param {Object} params - Object containing the parameters for the request.
+ * @param {string} params.url - The URL to which the request will be made.
+ * @param {string} params.method - The HTTP method to use (GET, POST, etc.).
+ * @param {Object} [params.body] - The body of the request, if necessary.
+ * @param {boolean} [params.isCors=false] - Indicates whether the request should be made with CORS.
+ * @returns {Promise<Object>} - Returns a promise that resolves with the response data, or false if an error occurs.
+ * @throws {Error} - Throws an error if the response is not correct.
  */
-const fetcho = async ({ url, method, body, isCors = false}) => {
+const fetcho = async ({ url, method, body, isCors = false }) => {
   try {
     const configPost = {
       method: "POST",
@@ -24,7 +24,7 @@ const fetcho = async ({ url, method, body, isCors = false}) => {
       cors: isCors ? "cors" : "no-cors",
       headers: {
         "Content-Type": "application/json",
-      }, 
+      },
       body: JSON.stringify(body),
     };
 
@@ -38,15 +38,15 @@ const fetcho = async ({ url, method, body, isCors = false}) => {
 
     const response = await fetch(url, config);
 
-    if(!response.ok) throw new Error(`La respuesta no es correcta, el status es ${response.status}`)
+    if (!response.ok) throw new Error(`The response is not correct, the status is ${response.status}`);
 
     const data = await response.json();
 
     return data;
   } catch (error) {
-    console.error(`Ocurrio un error realizando un fetch, donde la url era ${url} y el error fue ${error.message}`)
-    return false
+    console.error(`An error occurred while making a fetch request, where the URL was ${url} and the error was ${error.message}`);
+    return false;
   }
 };
 
-export default fetcho
+export default fetcho;
